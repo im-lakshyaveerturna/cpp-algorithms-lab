@@ -1,0 +1,1 @@
+../lab/lab7.cpp

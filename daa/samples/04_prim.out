@@ -1,0 +1,6 @@
+Minimum spanning tree edges (u v weight):
+0 3 5
+3 2 4
+0 1 10
+Total weight: 19
+Components: 1

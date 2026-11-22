@@ -1,0 +1,8 @@
+Our Adjacency List is represented as: 
+Neighbour/s of 0 is/are: 2 3 1 
+Neighbour/s of 1 is/are: 0 
+Neighbour/s of 2 is/are: 0 4 
+Neighbour/s of 3 is/are: 0 
+Neighbour/s of 4 is/are: 2 
+
+The dfs traversal is as follows: 0 2 4 3 1 

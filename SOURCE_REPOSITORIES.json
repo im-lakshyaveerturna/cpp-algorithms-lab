@@ -1,0 +1,25 @@
+{
+  "imported_on": "2026-11-03",
+  "sources": [
+    {
+      "github_repository": "im-lakshyaveerturna/sorting-algorithms-cpp",
+      "commit": "6565e7c3688641a3b4a995e34285739d2fef89fa",
+      "directory": "sorting"
+    },
+    {
+      "github_repository": "im-lakshyaveerturna/btech-cse-daa-lab",
+      "commit": "1eff750468a47a9878c54e8a7ea0d31c49f7aab8",
+      "directory": "daa"
+    }
+  ],
+  "local_adjustments": [
+    {
+      "path": ".github/workflows/test.yml",
+      "description": "Run both test suites from a single GitHub Actions workflow at the repository root."
+    },
+    {
+      "path": "daa/tests/test_algorithms.py",
+      "description": "Allow the process timeout to be set through DAA_PROGRAM_TIMEOUT_SECONDS; the default remains 30 seconds. The combined sanitizer target uses 120 seconds for slower CI runners."
+    }
+  ]
+}
