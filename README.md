@@ -1,14 +1,14 @@
 # Design and Analysis of Algorithms in C++17
 
-This lab contains **17 standalone C++17 programs**, including ten sorting
-experiments and examples and seven other algorithm practicals. Each program
+This lab contains **14 standalone C++17 programs**, including seven sorting
+experiments and seven other algorithm practicals. Each program
 has its own `main()` and compiles separately.
 
 ## Contents
 
 | Folder | Includes |
 |---|---|
-| [sorting/](sorting/) | Insertion, merge, quick, heap, counting, radix and bucket sorting labs; three simpler sorting examples; Excel workbooks, graphs, saved results and correction notes |
+| [sorting/](sorting/) | Insertion, merge, quick, heap, counting, radix and bucket sorting labs, with Excel workbooks, graphs, saved results and correction notes |
 | [daa/](daa/) | Strassen, BFS, DFS, Prim, Dijkstra, weighted interval scheduling and 0/1 knapsack; sample inputs/outputs and tests |
 
 ## Sorting programs
@@ -22,9 +22,6 @@ has its own `main()` and compiles separately.
 | Counting sort and timing | [sorting/lab/lab5.cpp](sorting/lab/lab5.cpp) |
 | Radix sort and timing | [sorting/lab/lab6.cpp](sorting/lab/lab6.cpp) |
 | Bucket sort and timing | [sorting/lab/lab7.cpp](sorting/lab/lab7.cpp) |
-| Bubble sort example | [sorting/Sorting/bubbleSorst.cpp](sorting/Sorting/bubbleSorst.cpp) |
-| Insertion sort example | [sorting/Sorting/insertionSort.cpp](sorting/Sorting/insertionSort.cpp) |
-| Merge sort example | [sorting/Sorting/mergesort.cpp](sorting/Sorting/mergesort.cpp) |
 
 Browse the [PNG and SVG graphs](sorting/graphs/), [Excel workbooks](sorting/lab/),
 and [CSV results](sorting/results/). The [results report](sorting/REPORT.md)

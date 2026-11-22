@@ -2,8 +2,8 @@
 
 Source: [Aayush-data-eng/Design-And-Analysis-of-Algorithm](https://github.com/Aayush-data-eng/Design-And-Analysis-of-Algorithm/tree/fb018e38df9ed2223aa6991af28c2b7294e8912f),
 commit `fb018e38df9ed2223aa6991af28c2b7294e8912f`.
-Alignment performed on 3 November 2026. The scope is `lab/lab1.cpp`–`lab/lab7.cpp`,
-the four associated Excel workbooks, and `Sorting/*.cpp`.
+Alignment performed on 3 November 2026. This document covers the seven programs
+in `lab/` and their four Excel workbooks.
 
 ## Preserved
 
@@ -19,7 +19,7 @@ the four associated Excel workbooks, and `Sorting/*.cpp`.
 | File | Correction | Reason |
 |---|---|---|
 | `lab/lab1.cpp`–`lab/lab4.cpp` | Widen `rand()` before adding index/instance | Prevent possible signed integer overflow while retaining the mathematical generation formula |
-| `lab/lab1.cpp`–`lab/lab3.cpp` and `Sorting/*.cpp` | Return zero after success | Successful programs previously reported failure to shells/build tools |
+| `lab/lab1.cpp`–`lab/lab3.cpp` | Return zero after success | Successful programs previously reported failure to shells/build tools |
 | `lab/lab5.cpp` | Replace the initialized variable-length frequency array with a vector | Original does not compile as standard C++17 |
 | `lab/lab5.cpp` | Size the output buffer from `n` | Avoid writes past a fixed 20-element buffer |
 | `lab/lab5.cpp` | Handle empty/negative sizes; reject negative values and excessive ranges | Avoid invalid array access/indexing and uncontrolled frequency-table allocation; supported range is documented |
@@ -28,9 +28,6 @@ the four associated Excel workbooks, and `Sorting/*.cpp`.
 | `lab/lab6.cpp` | Reject empty `getMax` calls | Helper cannot read element zero of an empty array |
 | `lab/lab7.cpp` | Use `n` variable-length bucket lists; retain the insertion-sort helper | Avoid hard-coded 20-bucket and 20-item-per-bucket limits |
 | `lab/lab7.cpp` | Validate finite `[0,1)` values and sizes; widen bucket-index multiplication | Prevent invalid indexing and rounding a valid fraction up to bucket `n` |
-| `Sorting/mergesort.cpp` | Use `mid + 1` to copy the right half | Original starts beyond the current range |
-| `Sorting/mergesort.cpp` | Correct midpoint expression, base condition and recursive bounds | Original has syntax errors and wrong bound names |
-| `Sorting/insertionSort.cpp`, `Sorting/mergesort.cpp` | Explicit loop-bound cast | Remove signed/unsigned comparison warnings |
 | `lab/insertionSortComplexityAnalysis.xlsx` | Use `A2:A99` and 98 matching cached category points for all three series | Original includes the header as an extra x-axis category |
 
 No other upstream source reformatting or algorithm substitutions are applied. The source remains
@@ -56,9 +53,9 @@ preservation. This avoids losing original Excel features during whole-workbook s
 ## Regression evidence
 
 - Standard C++17 builds use warnings as errors.
-- Every permutation through seven elements is checked for the four comparison sorts and three examples.
+- Every permutation through seven elements is checked for the four comparison sorts.
 - 37 exact four-sort counter fixtures were captured from the unmodified upstream functions.
 - Random, duplicate-heavy, empty and boundary cases are checked independently against `std::sort`.
 - Sanitizers cover fixed-buffer regressions, bucket concentration, empty input and radix `INT_MAX`.
-- Ten standalone executables are run and their reference output formats checked.
+- All seven standalone executables are run and their reference output formats checked.
 - Four workbooks and four CSVs are reconciled; each chart must have three 98-point series.

@@ -70,8 +70,10 @@ def main():
 #include <climits>
 #include <array>
 '''
-    for namespace, source in [(f'lab{i}', ROOT / 'lab' / f'lab{i}.cpp') for i in range(1, 8)] + [(name, ROOT / 'Sorting' / f'{name}.cpp') for name in ['bubbleSorst', 'insertionSort', 'mergesort']]:
-        code += f'namespace test_{namespace} {{\n#define main demo_main\n#include "{source}"\n#undef main\n}}\n'
+    labs = [f'lab{number}' for number in range(1, 8)]
+    for name in labs:
+        source = ROOT / 'lab' / f'{name}.cpp'
+        code += f'namespace test_{name} {{\n#define main demo_main\n#include "{source}"\n#undef main\n}}\n'
     code += r'''
 void require(bool ok) { if(!ok) throw std::runtime_error("Regression failed"); }
 std::array<int,4> counters(std::vector<int>a) {
@@ -84,9 +86,6 @@ void check(std::vector<int>a) {
  auto counts=counters(a);int inversions=0;
  for(std::size_t i=0;i<a.size();++i)for(std::size_t j=i+1;j<a.size();++j)if(a[i]>a[j])++inversions;
  require(counts[0]==inversions+std::max(0,static_cast<int>(a.size())-1));
- auto b=a,c=a,d=a,expected=a;std::sort(expected.begin(),expected.end());
- bubbleSorst::bubbleSort(b);insertionSort::insertionSort(c);mergesort::mergeSort(d,0,static_cast<int>(d.size())-1);
- require(b==expected&&c==expected&&d==expected);
 }
 int main() {
  for(int n=0;n<=7;++n){std::vector<int>a(n);std::iota(a.begin(),a.end(),0);do{check(a);}while(std::next_permutation(a.begin(),a.end()));}
@@ -114,7 +113,7 @@ int main() {
   rejected=false;try{if(kind==5)lab5::countsort(nullptr,-1);if(kind==6)lab6::radixsort(nullptr,-1);if(kind==7)lab7::bucket_sort(nullptr,-1);}
   catch(const std::invalid_argument&){rejected=true;}require(rejected);
  }
- std::cout<<"PASS: all sorts, examples, exhaustive permutations, reference counters and boundary inputs\n";
+ std::cout<<"PASS: all seven sorts, exhaustive permutations, reference counters and boundary inputs\n";
 }
 '''
     statements = []
@@ -124,7 +123,7 @@ int main() {
         statements.append(f'require(counters({{{values}}})==std::array<int,4>{{{counts}}});')
     source = BUILD / 'test_sorts.cpp'
     code = code.replace('FIXTURES', '\n'.join(statements))
-    for name in ['lab1', 'lab2', 'lab3', 'lab4', 'lab5', 'lab6', 'lab7', 'bubbleSorst', 'insertionSort', 'mergesort']:
+    for name in labs:
         code = code.replace(name + '::', 'test_' + name + '::')
     source.write_text(code)
     compiler = shlex.split(os.environ.get('CXX', 'c++'))
@@ -132,26 +131,21 @@ int main() {
     subprocess.run(compiler + flags + [str(source), '-o', str(BUILD / 'test_sorts')], check=True)
     subprocess.run([str(BUILD / 'test_sorts')], check=True, timeout=60)
     demo_inputs = json.loads((ROOT / 'tests/fixtures/reference_demo_inputs.json').read_text())
-    for number in range(1, 8):
-        result = subprocess.run([str(BUILD / f'lab{number}')], capture_output=True, text=True, check=True, timeout=30)
+    for number, name in enumerate(labs, start=1):
+        result = subprocess.run([str(BUILD / name)], capture_output=True, text=True, check=True, timeout=30)
         if number <= 4:
             assert len(result.stdout.splitlines()) == 98
             for n, line in zip(range(30, 1001, 10), result.stdout.splitlines()):
                 assert float(line.split(': ')[-1] if number <= 2 else line) >= 0
                 if number <= 2: assert line.startswith(f'Length: {n}, Average Comparisons: ')
         else:
-            expected = demo_inputs[f'lab{number}']
+            expected = demo_inputs[name]
             original = result.stdout.split('Original Array:\n')[1].split('Sorted Array:')[0]
             assert list(map(float, original.split())) == expected
             text = result.stdout.split('Sorted Array:\n')[1].split('Execution Time:')[0]
             values = list(map(float, text.split()))
             assert len(values) == 20 and values == sorted(expected)
-    for name, expected in [('bubbleSorst', [1,3,5,6]), ('mergesort', [10,27,38,43])]:
-        result = subprocess.run([str(BUILD / name)], capture_output=True, text=True, check=True)
-        assert list(map(int, result.stdout.replace('Sorted array is : ', '').split())) == expected
-    result = subprocess.run([str(BUILD / 'insertionSort')], capture_output=True, text=True, check=True)
-    assert '5 6 11 12 13' in result.stdout and 'Number of comparisons are : 11' in result.stdout
-    print('PASS: ten standalone demos, reference output formats and 20-element inputs')
+    print('PASS: seven standalone lab programs, reference output formats and 20-element inputs')
     check_workbooks()
 
 

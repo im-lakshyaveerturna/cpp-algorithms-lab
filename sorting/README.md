@@ -19,14 +19,12 @@ The upstream README describes a B.Sc. Physical Science course; this copy preserv
 | [lab/lab6.cpp](lab/lab6.cpp) | Radix sort | Exact original 20 integers; one `clock()` timing |
 | [lab/lab7.cpp](lab/lab7.cpp) | Bucket sort | Exact original 20 fractions; one `clock()` timing |
 
-The reference's three simpler examples are in [Sorting/](Sorting/), including its original
-`bubbleSorst.cpp` filename. Existing `src/*.cpp` filenames are aliases to their corresponding
-`lab/labN.cpp` files, so both paths use the same implementation.
+The `src/*.cpp` files are aliases for the corresponding programs in `lab/`.
 Each source has its own `main()` and compiles independently. No shared project headers are needed.
 
 ## Build and run
 
-Requires a C++17 compiler. Compile one program, or build all ten:
+Use a C++17 compiler. Compile one program directly or use `make all` to build all seven.
 
 ```sh
 c++ -std=c++17 -O2 -Wall -Wextra -Wpedantic lab/lab1.cpp -o lab1
@@ -38,8 +36,8 @@ make test
 make sanitize
 ```
 
-On Windows, compile the canonical `lab/` or `Sorting/` source directly and use an `.exe`
-output name; symlink support is not needed for those paths. Python 3.10+ is needed for tests.
+On Windows, compile the source in `lab/` directly and use an `.exe` output name.
+Use Python 3.10 or later to run the tests.
 GCC and Clang are supported. GitHub Actions runs regular and sanitizer checks.
 
 Like the reference, labs 1 and 2 print labelled size/average lines; labs 3 and 4 print
